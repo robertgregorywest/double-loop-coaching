@@ -1,6 +1,6 @@
-import { style, styleVariants } from "@vanilla-extract/css"
-import { theme } from "../theme.css"
-import { media } from "./ui.css"
+import { style, styleVariants } from "@vanilla-extract/css";
+import { theme } from "../theme.css";
+import { media } from "./ui.css";
 
 export const desktopHeaderNavWrapper = style({
   position: "relative",
@@ -12,7 +12,7 @@ export const desktopHeaderNavWrapper = style({
       paddingTop: theme.space[4],
     },
   },
-})
+});
 
 const mobileHeaderNavWrapperBase = style({
   display: "block",
@@ -23,7 +23,7 @@ const mobileHeaderNavWrapperBase = style({
       display: "none",
     },
   },
-})
+});
 
 export const mobileHeaderNavWrapper = styleVariants({
   open: [
@@ -33,12 +33,12 @@ export const mobileHeaderNavWrapper = styleVariants({
     },
   ],
   closed: [mobileHeaderNavWrapperBase],
-})
+});
 
 export const mobileNavSVGColorWrapper = styleVariants({
-  primary: [{ color: theme.colors.primary }],
+  primary: [{ color: theme.colors.text }],
   reversed: [{ color: theme.colors.background }],
-})
+});
 
 export const mobileNavOverlay = style({
   position: "absolute",
@@ -52,7 +52,7 @@ export const mobileNavOverlay = style({
       display: "none",
     },
   },
-})
+});
 
 export const mobileNavLink = style({
   display: "block",
@@ -62,4 +62,4 @@ export const mobileNavLink = style({
   paddingBottom: theme.space[2],
   paddingLeft: theme.space[4],
   paddingRight: theme.space[4],
-})
+});
