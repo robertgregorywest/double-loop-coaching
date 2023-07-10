@@ -3,7 +3,7 @@ import { theme } from "../theme.css";
 
 const logoBase = style({
   transitionProperty: "fill",
-  transitionDuration: "0.2s",
+  transitionDuration: "0.3s",
   transitionTimingFunction: "ease-in-out",
 });
 

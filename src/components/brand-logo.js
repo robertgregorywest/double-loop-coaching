@@ -20,7 +20,6 @@ export default function BrandLogo({ isOpen = false }) {
       />
       <path
         className={logoMiddleColor[isOpen ? "reversed" : "primary"]}
-        fill={isOpen ? "#fff" : "#005e59"}
         d="m385.38,307.89c-28.48-21.41-81.01-32.58-99.54-38.56-18.53,5.99-71.06,17.15-99.54,38.56,32.06,25.18,75.84,30.77,99.55,38.55,23.63-7.78,67.47-13.36,99.53-38.55Z"
       />
       <path
