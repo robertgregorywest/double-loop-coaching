@@ -70,14 +70,6 @@ For a more detailed walkthrough, see the tutorial on how to [build your site wit
 [gatsby cloud dashboard]: https://gatsbyjs.com/dashboard
 [tutorial]: https://www.gatsbyjs.com/docs/tutorial/part-1/#build-your-site-with-gatsby-cloud
 
-### Deploy without using the CLI
-
-Alternatively, you can deploy this starter directly to Gatsby Cloud.
-
-Note that you will need to set up your content in DatoCMS manually.
-
-[![Deploy to Gatsby](https://www.gatsbyjs.com/deploynow.svg "Deploy to Gatsby")](https://www.gatsbyjs.com/dashboard/deploynow?url=https://github.com/gatsbyjs/gatsby-starter-datocms-homepage)
-
 ## Setting up Gatsby Cloud Preview
 
 To enable Gatsby Preview with this site, see the documentation for
@@ -201,7 +193,7 @@ For this example, we'll create a new "Banner" component.
          heading: String
          text: String
        }
-     `)
+     `);
      // ...
      actions.createTypes(`
        type DatoCmsBanner implements Node & HomepageBanner & HomepageBlock @dontInfer {
@@ -210,18 +202,18 @@ For this example, we'll create a new "Banner" component.
          heading: String
          text: String
        }
-     `)
+     `);
      // ...
-   }
+   };
    ```
 
 1. Next, create the Banner component:
 
    ```jsx fileExt
    // src/components/banner.js
-   import * as React from "react"
-   import { graphql } from "gatsby"
-   import { Section, Container, Heading, Text } from "./ui"
+   import * as React from "react";
+   import { graphql } from "gatsby";
+   import { Section, Container, Heading, Text } from "./ui";
 
    export default function Banner(props) {
      return (
@@ -231,7 +223,7 @@ For this example, we'll create a new "Banner" component.
            <Text>{props.text}</Text>
          </Container>
        </Section>
-     )
+     );
    }
 
    export const query = graphql`
@@ -240,25 +232,25 @@ For this example, we'll create a new "Banner" component.
        heading
        text
      }
-   `
+   `;
    ```
 
 1. Export the component from `src/components/sections.js`
 
    ```js fileExt
    // src/components/sections.js
-   export { default as HomepageHero } from "./hero"
-   export { default as HomepageFeature } from "./feature"
-   export { default as HomepageFeatureList } from "./feature-list"
-   export { default as HomepageLogoList } from "./logo-list"
-   export { default as HomepageBenefitList } from "./benefit-list"
-   export { default as HomepageTestimonialList } from "./testimonial-list"
-   export { default as HomepageStatList } from "./stat-list"
-   export { default as HomepageCta } from "./cta"
-   export { default as HomepageProductList } from "./product-list"
+   export { default as HomepageHero } from "./hero";
+   export { default as HomepageFeature } from "./feature";
+   export { default as HomepageFeatureList } from "./feature-list";
+   export { default as HomepageLogoList } from "./logo-list";
+   export { default as HomepageBenefitList } from "./benefit-list";
+   export { default as HomepageTestimonialList } from "./testimonial-list";
+   export { default as HomepageStatList } from "./stat-list";
+   export { default as HomepageCta } from "./cta";
+   export { default as HomepageProductList } from "./product-list";
 
    // add export for new component
-   export { default as HomepageBanner } from "./banner"
+   export { default as HomepageBanner } from "./banner";
    ```
 
 1. Add the GraphQL query fragment to the query in `src/pages/index.js`
@@ -292,7 +284,7 @@ For this example, we'll create a new "Banner" component.
          }
        }
      }
-   `
+   `;
    ```
 
 ## Troubleshooting

@@ -2,6 +2,7 @@
   "name": "double-loop-coaching",
   "version": "1.0.0",
   "main": "index.js",
+  "license": "UNLICENSED",
   "engines": {
     "node": ">=18.0.0"
   },

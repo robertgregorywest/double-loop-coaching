@@ -1,15 +1,15 @@
 // support for .env, .env.development, and .env.production
-require("dotenv").config()
+require("dotenv").config();
 require("dotenv").config({
   path: `.env.${process.env.NODE_ENV}`,
-})
+});
 
 module.exports = {
   siteMetadata: {
-    siteUrl: "https://gatsbydatocmshomepage.gatsbyjs.io/",
-    title: "Gatsby DatoCMS Homepage Starter",
-    author: `Gatsby`,
-    description: "A Gatsby Starter for building homepages with DatoCMS",
+    siteUrl: "https://doubleloopcoaching.com/",
+    title: "Double Loop Coaching",
+    author: `Double Loop Coaching Limited`,
+    description: "Coaching for performance and wellbeing",
   },
   plugins: [
     {
@@ -26,8 +26,8 @@ module.exports = {
     {
       resolve: "gatsby-plugin-manifest",
       options: {
-        name: "Gatsby Starter DatoCMS Homepage",
-        short_name: "Gatsby",
+        name: "Double Loop Coaching Homepage",
+        short_name: "Double Loop",
         start_url: "/",
         // These can be imported once ESM support lands
         background_color: "#ffffff",
@@ -36,4 +36,4 @@ module.exports = {
       },
     },
   ],
-}
+};
