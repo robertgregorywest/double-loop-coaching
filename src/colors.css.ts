@@ -2,7 +2,7 @@ export const colors = {
   background: "#fff",
   text: "#1d1d1b",
   primary: "#005e59",
-  muted: "#fffbfa",
+  muted: "#cff2f2",
   active: "#007e78",
   black: "#000",
   logoTop: "#00a19a",
