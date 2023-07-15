@@ -1,5 +1,5 @@
-const dato = require("datocms-structured-text-to-html-string")
-const { getGatsbyImageResolver } = require("gatsby-plugin-image/graphql-utils")
+const dato = require("datocms-structured-text-to-html-string");
+const { getGatsbyImageResolver } = require("gatsby-plugin-image/graphql-utils");
 
 exports.createSchemaCustomization = async ({ actions }) => {
   actions.createFieldExtension({
@@ -9,51 +9,51 @@ exports.createSchemaCustomization = async ({ actions }) => {
         resolve(source) {
           return source.internal.type
             .replace("DatoCms", "")
-            .replace(/list$/, "List")
+            .replace(/list$/, "List");
         },
-      }
+      };
     },
-  })
+  });
 
   actions.createFieldExtension({
     name: "imagePassthroughArgs",
     extend(options) {
-      const { args } = getGatsbyImageResolver()
+      const { args } = getGatsbyImageResolver();
       return {
         args,
-      }
+      };
     },
-  })
+  });
 
   actions.createFieldExtension({
     name: "metalinks",
     extend(options) {
       return {
         async resolve(source, args, context, info) {
-          const type = info.schema.getType(source.internal.type)
-          const resolver = type.getFields().metalinks?.resolve
+          const type = info.schema.getType(source.internal.type);
+          const resolver = type.getFields().metalinks?.resolve;
           const result = await resolver(source, args, context, {
             fieldName: "metalinks",
-          })
-          return result
+          });
+          return result;
         },
-      }
+      };
     },
-  })
+  });
 
   actions.createFieldExtension({
     name: "ctalink",
     extend(options) {
       return {
         async resolve(source, args, context, info) {
-          const type = info.schema.getType(source.internal.type)
-          const resolver = type.getFields().originalCta?.resolve
-          const result = await resolver(source, args, context, info)
-          return result
+          const type = info.schema.getType(source.internal.type);
+          const resolver = type.getFields().originalCta?.resolve;
+          const result = await resolver(source, args, context, info);
+          return result;
         },
-      }
+      };
     },
-  })
+  });
 
   // support DatoCMS logos as images
   actions.createFieldExtension({
@@ -61,11 +61,11 @@ exports.createSchemaCustomization = async ({ actions }) => {
     extend(options) {
       return {
         async resolve(source, args, context, info) {
-          return source
+          return source;
         },
-      }
+      };
     },
-  })
+  });
 
   actions.createFieldExtension({
     name: "navItemType",
@@ -80,27 +80,27 @@ exports.createSchemaCustomization = async ({ actions }) => {
         resolve() {
           switch (options.name) {
             case "Group":
-              return "Group"
+              return "Group";
             default:
-              return "Link"
+              return "Link";
           }
         },
-      }
+      };
     },
-  })
+  });
 
   actions.createFieldExtension({
     name: "richText",
     extend(options) {
       return {
         resolve(source, args, context, info) {
-          const body = source.entityPayload.attributes.body
-          const html = dato.render(body)
-          return html
+          const body = source.entityPayload.attributes.body;
+          const html = dato.render(body);
+          return html;
         },
-      }
+      };
     },
-  })
+  });
 
   // abstract interfaces
   actions.createTypes(/* GraphQL */ `
@@ -422,7 +422,18 @@ exports.createSchemaCustomization = async ({ actions }) => {
       html: String!
       body: DatoCmsDatoCmsPageBodyStructuredText
     }
-  `)
+
+    interface ServicePage implements Node {
+      id: ID!
+      slug: String!
+      title: String
+      description: String
+      image: HomepageImage
+      content: [HomepageBlock]
+      # DatoCMS
+      entityPayload: JSON
+    }
+  `);
 
   // CMS-specific types for Homepage
   actions.createTypes(/* GraphQL */ `
@@ -614,7 +625,7 @@ exports.createSchemaCustomization = async ({ actions }) => {
       content: [HomepageBlock]
       entityPayload: JSON
     }
-  `)
+  `);
 
   // CMS specific types for About page
   actions.createTypes(/* GraphQL */ `
@@ -685,7 +696,7 @@ exports.createSchemaCustomization = async ({ actions }) => {
       entityPayload: JSON
       originalId: String
     }
-  `)
+  `);
 
   // Layout types
   actions.createTypes(/* GraphQL */ `
@@ -721,7 +732,7 @@ exports.createSchemaCustomization = async ({ actions }) => {
       header: LayoutHeader
       footer: LayoutFooter
     }
-  `)
+  `);
 
   actions.createTypes(/* GraphQL */ `
     type DatoCmsPage implements Node & Page {
@@ -736,18 +747,33 @@ exports.createSchemaCustomization = async ({ actions }) => {
       html: String! @richText
       body: DatoCmsDatoCmsPageBodyStructuredText
     }
-  `)
-}
+  `);
+
+  // CMS specific types for Service page
+  actions.createTypes(/* GraphQL */ `
+    type DatoCmsServicepage implements Node & ServicePage @dontInfer {
+      id: ID!
+      slug: String!
+      title: String @proxy(from: "entityPayload.attributes.metadata.title")
+      description: String
+        @proxy(from: "entityPayload.attributes.metadata.description")
+      image: HomepageImage
+        @link(by: "originalId", from: "entityPayload.attributes.metadata.image")
+      content: [HomepageBlock]
+      entityPayload: JSON
+      originalId: String
+    }
+  `);
+};
 
 exports.createPages = ({ actions }) => {
-  const { createSlice } = actions
+  const { createSlice } = actions;
   createSlice({
     id: "header",
     component: require.resolve("./src/components/header.js"),
-  })
+  });
   createSlice({
     id: "footer",
     component: require.resolve("./src/components/footer.js"),
-  })
-}
-      
+  });
+};
