@@ -1,11 +1,11 @@
 export const colors = {
   background: "#fff",
   text: "#1d1d1b",
-  primary: "#005e59",
+  primary: "#0c2323",
   muted: "#cff2f2",
-  active: "#007e78",
+  active: "#408662",
   black: "#000",
-  logoTop: "#00a19a",
-  logoMiddle: "#005e59",
-  logoBottom: "#007e78",
+  logoTop: "#408662",
+  logoMiddle: "#0c2323",
+  logoBottom: "#365c3f",
 };

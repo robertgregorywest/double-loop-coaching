@@ -19,8 +19,8 @@ export default function Service(props) {
   );
 }
 export const Head = (props) => {
-  const { aboutPage } = props.data;
-  return <SEOHead {...aboutPage} />;
+  const { servicePage } = props.data;
+  return <SEOHead {...servicePage} />;
 };
 export const query = graphql`
   query servicePage($id: String!) {
