@@ -8,10 +8,12 @@ import {
   Box,
   Space,
   NavLink,
+  Subhead,
   Text,
   IconLink,
   VisuallyHidden,
 } from "./ui";
+import CookieNotice from "./cookie-banner";
 
 const socialMedia = {
   FACEBOOK: {
@@ -126,6 +128,13 @@ export default function Footer() {
         </Flex>
       </Container>
       <Space size={3} />
+      <CookieNotice>
+        <Subhead>This website uses cookies</Subhead>
+        <Text as="p" variant="body">
+          We use cookies to improve the performance of our site, analyse our
+          traffic and measure the success of our advertising campaigns.
+        </Text>
+      </CookieNotice>
     </Box>
   );
 }
