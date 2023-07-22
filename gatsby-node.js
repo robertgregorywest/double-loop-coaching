@@ -413,6 +413,21 @@ exports.createSchemaCustomization = async ({ actions }) => {
       entityPayload: JSON
     }
 
+    interface CompanyDetail implements Node & HomepageBlock {
+      id: ID!
+      blocktype: String
+      organisationName: String
+      addressLineOne: String
+      addressLineTwo: String
+      addressPostcode: String
+      addressTown: String
+      companyNumber: String
+      vatNumber: String
+      # DatoCMS
+      originalId: String
+      entityPayload: JSON
+    }
+
     interface Page implements Node {
       id: ID!
       slug: String!
@@ -426,6 +441,16 @@ exports.createSchemaCustomization = async ({ actions }) => {
     interface ServicePage implements Node {
       id: ID!
       slug: String!
+      title: String
+      description: String
+      image: HomepageImage
+      content: [HomepageBlock]
+      # DatoCMS
+      entityPayload: JSON
+    }
+
+    interface ContactPage implements Node {
+      id: ID!
       title: String
       description: String
       image: HomepageImage
@@ -762,6 +787,37 @@ exports.createSchemaCustomization = async ({ actions }) => {
       content: [HomepageBlock]
       entityPayload: JSON
       originalId: String
+    }
+  `);
+
+  // CMS specific types for Contact page
+  actions.createTypes(/* GraphQL */ `
+    type DatoCmsContactpage implements Node & ContactPage @dontInfer {
+      id: ID!
+      title: String @proxy(from: "entityPayload.attributes.metadata.title")
+      description: String
+        @proxy(from: "entityPayload.attributes.metadata.description")
+      image: HomepageImage
+        @link(by: "originalId", from: "entityPayload.attributes.metadata.image")
+      content: [HomepageBlock]
+      entityPayload: JSON
+      originalId: String
+    }
+
+    type DatoCmsCompanyDetail implements Node & CompanyDetail & HomepageBlock
+      @dontInfer {
+      id: ID!
+      blocktype: String @blocktype
+      originalId: String
+      entityPayload: JSON
+      organisationName: String
+      addressLineOne: String
+      addressLineTwo: String
+      addressPostcode: String
+      addressTown: String
+      companyNumber: String
+      vatNumber: String
+      image: HomepageImage
     }
   `);
 };

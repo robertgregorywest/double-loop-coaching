@@ -1,5 +1,6 @@
-import * as React from "react"
-import { graphql } from "gatsby"
+import * as React from "react";
+import { graphql } from "gatsby";
+import { GatsbyImage, getImage } from "gatsby-plugin-image";
 import {
   Container,
   Section,
@@ -8,26 +9,26 @@ import {
   Kicker,
   Heading,
   Subhead,
+  Space,
   Box,
-  Icon,
   LinkList,
-} from "./ui"
+} from "./ui";
 
 function Product(props) {
   return (
-    <Box center>
+    <Box as="li" width="third" padding={4} paddingY={3} center>
       {props.image && (
-        <Icon
+        <GatsbyImage
           alt={props.image.alt}
-          image={props.image.gatsbyImageData}
-          size="large"
+          image={getImage(props.image.gatsbyImageData)}
         />
       )}
+      <Space size={2} />
       <Subhead>{props.heading}</Subhead>
       <Text>{props.text}</Text>
       <LinkList links={props.links} />
     </Box>
-  )
+  );
 }
 
 export default function ProductList(props) {
@@ -41,16 +42,14 @@ export default function ProductList(props) {
           </Heading>
           {props.text && <Text>{props.text}</Text>}
         </Box>
-        <FlexList gap={4} variant="responsive">
+        <FlexList gutter={4} variant="start" responsive wrap>
           {props.content.map((product) => (
-            <li key={product.id}>
-              <Product {...product} />
-            </li>
+            <Product key={product.id} {...product} />
           ))}
         </FlexList>
       </Container>
     </Section>
-  )
+  );
 }
 
 export const query = graphql`
@@ -75,4 +74,4 @@ export const query = graphql`
       }
     }
   }
-`
+`;

@@ -1,8 +1,8 @@
-import * as React from "react"
-import { graphql } from "gatsby"
-import { GatsbyImage, getImage } from "gatsby-plugin-image"
-import { Container, Section, Text, SuperHeading } from "./ui"
-import * as styles from "./about-hero.css"
+import * as React from "react";
+import { graphql } from "gatsby";
+import { GatsbyImage, getImage } from "gatsby-plugin-image";
+import { Container, Section, Text, SuperHeading } from "./ui";
+import * as styles from "./about-hero.css";
 
 export default function AboutHero(props) {
   return (
@@ -12,7 +12,12 @@ export default function AboutHero(props) {
           {props.heading}
         </SuperHeading>
         {props.text && (
-          <Text className={styles.aboutHeroText}>{props.text}</Text>
+          <Text
+            variant="heroText"
+            dangerouslySetInnerHTML={{
+              __html: props.text,
+            }}
+          />
         )}
       </Container>
       <Container width="wide">
@@ -25,7 +30,7 @@ export default function AboutHero(props) {
         )}
       </Container>
     </Section>
-  )
+  );
 }
 
 export const query = graphql`
@@ -39,4 +44,4 @@ export const query = graphql`
       alt
     }
   }
-`
+`;
