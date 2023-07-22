@@ -1,6 +1,6 @@
-import { graphql } from "gatsby"
-import { GatsbyImage, getImage } from "gatsby-plugin-image"
-import * as React from "react"
+import { graphql } from "gatsby";
+import { GatsbyImage, getImage } from "gatsby-plugin-image";
+import * as React from "react";
 import {
   Box,
   ButtonList,
@@ -11,7 +11,8 @@ import {
   Section,
   Subhead,
   Text,
-} from "./ui"
+} from "./ui";
+import { heroSubhead } from "./hero.css";
 
 export default function Hero(props) {
   return (
@@ -31,14 +32,16 @@ export default function Hero(props) {
               {props.kicker && <Kicker>{props.kicker}</Kicker>}
               {props.h1}
             </Heading>
-            <Subhead as="h2">{props.subhead}</Subhead>
+            <Subhead as="h2" className={heroSubhead}>
+              {props.subhead}
+            </Subhead>
             <Text as="p">{props.text}</Text>
             <ButtonList links={props.links} />
           </Box>
         </Flex>
       </Container>
     </Section>
-  )
+  );
 }
 
 export const query = graphql`
@@ -59,4 +62,4 @@ export const query = graphql`
       alt
     }
   }
-`
+`;
