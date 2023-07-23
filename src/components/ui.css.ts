@@ -582,7 +582,7 @@ export const avatar = style({
   borderRadius: theme.radii.circle,
 });
 
-export type LogoSizes = "small" | "medium";
+export type LogoSizes = "small" | "medium" | "large";
 
 export const logos: Record<LogoSizes, string> = styleVariants({
   small: {
@@ -591,6 +591,9 @@ export const logos: Record<LogoSizes, string> = styleVariants({
   },
   medium: {
     maxWidth: "128px",
+  },
+  large: {
+    maxWidth: "250px",
   },
 });
 

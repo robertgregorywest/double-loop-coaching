@@ -1,5 +1,5 @@
-import * as React from "react"
-import { graphql } from "gatsby"
+import * as React from "react";
+import { graphql } from "gatsby";
 import {
   Container,
   Section,
@@ -9,7 +9,7 @@ import {
   Heading,
   Text,
   Space,
-} from "./ui"
+} from "./ui";
 
 function Benefit(props) {
   return (
@@ -18,14 +18,14 @@ function Benefit(props) {
         <Icon
           alt={props.image.alt}
           image={props.image.gatsbyImageData}
-          size="small"
+          size="medium"
         />
       )}
       <Space size={2} />
       <Heading variant="subheadSmall">{props.heading}</Heading>
       <Text>{props.text}</Text>
     </Box>
-  )
+  );
 }
 
 export default function BenefitList(props) {
@@ -44,7 +44,7 @@ export default function BenefitList(props) {
         </FlexList>
       </Container>
     </Section>
-  )
+  );
 }
 
 export const query = graphql`
@@ -63,4 +63,4 @@ export const query = graphql`
       }
     }
   }
-`
+`;
