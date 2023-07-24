@@ -1,6 +1,6 @@
 import * as React from "react";
 import { graphql, useStaticQuery } from "gatsby";
-import { Facebook, Twitter, Instagram, Linkedin } from "react-feather";
+import { Facebook, Instagram, Linkedin } from "react-feather";
 import {
   Container,
   Flex,
@@ -20,11 +20,6 @@ const socialMedia = {
     url: "https://facebook.com",
     name: "Facebook",
     icon: <Facebook />,
-  },
-  TWITTER: {
-    url: "https://facebook.com",
-    name: "Twitter",
-    icon: <Twitter />,
   },
   INSTAGRAM: {
     url: "https://instagram.com",
