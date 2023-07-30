@@ -438,6 +438,22 @@ exports.createSchemaCustomization = async ({ actions }) => {
       body: DatoCmsDatoCmsPageBodyStructuredText
     }
 
+    interface BlogPost implements Node {
+      id: ID!
+      slug: String!
+      title: String
+      description: String
+      image: HomepageImage
+      html: String!
+      body: DatoCmsDatoCmsPageBodyStructuredText
+      excerpt: String
+      category: String
+      header: HomepageImage
+      # DatoCMS
+      originalId: String
+      entityPayload: JSON
+    }
+
     interface ServicePage implements Node {
       id: ID!
       slug: String!
@@ -771,6 +787,24 @@ exports.createSchemaCustomization = async ({ actions }) => {
         @link(by: "originalId", from: "entityPayload.attributes.metadata.image")
       html: String! @richText
       body: DatoCmsDatoCmsPageBodyStructuredText
+    }
+
+    type DatoCmsBlogpost implements Node & BlogPost @dontInfer {
+      id: ID!
+      entityPayload: JSON!
+      slug: String!
+      title: String @proxy(from: "entityPayload.attributes.metadata.title")
+      description: String
+        @proxy(from: "entityPayload.attributes.metadata.description")
+      image: HomepageImage
+        @link(by: "originalId", from: "entityPayload.attributes.metadata.image")
+      html: String! @richText
+      body: DatoCmsDatoCmsPageBodyStructuredText
+      excerpt: String
+      category: String
+      header: HomepageImage
+      entityPayload: JSON
+      originalId: String
     }
   `);
 
