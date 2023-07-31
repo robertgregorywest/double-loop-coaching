@@ -11,7 +11,6 @@ import {
   Text,
   Avatar,
 } from "../../components/ui";
-import { avatar as avatarStyle } from "../../components/ui.css";
 import * as styles from "./blog-post.css";
 import SEOHead from "../../components/head";
 
@@ -28,19 +27,12 @@ export default function BlogPost(props) {
           {blogPost.author && (
             <Box center>
               <Flex>
-                {blogPost.author.avatar &&
-                  (!!blogPost.author.avatar.gatsbyImageData ? (
-                    <Avatar
-                      {...blogPost.author.avatar}
-                      image={blogPost.author.avatar.gatsbyImageData}
-                    />
-                  ) : (
-                    <img
-                      src={blogPost.author.avatar.url}
-                      alt={blogPost.author.name}
-                      className={avatarStyle}
-                    />
-                  ))}
+                {blogPost.author.avatar && (
+                  <Avatar
+                    {...blogPost.author.avatar}
+                    image={blogPost.author.avatar.gatsbyImageData}
+                  />
+                )}
                 <Text variant="bold">{blogPost.author.name}</Text>
               </Flex>
             </Box>
@@ -85,6 +77,14 @@ export const query = graphql`
         id
         gatsbyImageData
         alt
+      }
+      author {
+        name
+        avatar {
+          alt
+          gatsbyImageData
+          url
+        }
       }
       html
     }
