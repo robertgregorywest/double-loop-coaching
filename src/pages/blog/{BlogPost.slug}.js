@@ -21,7 +21,7 @@ export default function BlogPost(props) {
       <Container>
         <Box paddingY={5}>
           <Heading as="h1" center>
-            {blogPost.title}
+            {blogPost.heading}
           </Heading>
           <Space size={4} />
           {blogPost.author && (
@@ -73,6 +73,7 @@ export const query = graphql`
         id
         url
       }
+      heading
       header {
         id
         gatsbyImageData

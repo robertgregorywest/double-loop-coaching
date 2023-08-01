@@ -18,7 +18,7 @@ import SEOHead from "../components/head";
 export default function Blog(props) {
   const { nodes: posts } = props.data.allBlogPost;
   const featuredPosts = posts.filter((p) => p.category === "Featured");
-  const regularPosts = posts.filter((p) => p.category !== "Featured");
+  // const regularPosts = posts.filter((p) => p.category !== "Featured");
 
   return (
     <Layout>
@@ -33,8 +33,8 @@ export default function Blog(props) {
             ))}
           </FlexList>
         </Box>
-        <Box paddingY={4}>
-          <Subhead>Product Updates</Subhead>
+        {/* <Box paddingY={4}>
+          <Subhead>Older Posts</Subhead>
           <FlexList responsive wrap gap={0} gutter={3} variant="start">
             {regularPosts.map((post) => (
               <Box as="li" key={post.id} padding={3} width="third">
@@ -42,7 +42,7 @@ export default function Blog(props) {
               </Box>
             ))}
           </FlexList>
-        </Box>
+        </Box> */}
       </Container>
     </Layout>
   );
@@ -51,7 +51,7 @@ export default function Blog(props) {
 function PostCard({
   slug,
   header,
-  title,
+  heading,
   excerpt,
   author,
   category,
@@ -67,7 +67,7 @@ function PostCard({
       )}
       <Subhead>
         <Kicker>{category}</Kicker>
-        {title}
+        {heading}
       </Subhead>
       <Text as="p">{excerpt}</Text>
       {author?.name && (
@@ -79,22 +79,22 @@ function PostCard({
   );
 }
 
-function PostCardSmall({ slug, header, title, category, ...props }) {
-  return (
-    <BlockLink {...props} to={`/blog/${slug}`}>
-      {header && (
-        <>
-          <GatsbyImage alt={header.alt} image={header.gatsbyImageData} />
-          <Space size={3} />
-        </>
-      )}
-      <Subhead>
-        <Kicker>{category}</Kicker>
-        {title}
-      </Subhead>
-    </BlockLink>
-  );
-}
+// function PostCardSmall({ slug, header, heading, category, ...props }) {
+//   return (
+//     <BlockLink {...props} to={`/blog/${slug}`}>
+//       {header && (
+//         <>
+//           <GatsbyImage alt={header.alt} image={header.gatsbyImageData} />
+//           <Space size={3} />
+//         </>
+//       )}
+//       <Subhead>
+//         <Kicker>{category}</Kicker>
+//         {heading}
+//       </Subhead>
+//     </BlockLink>
+//   );
+// }
 
 export const Head = () => {
   return <SEOHead title="Double Loop Coaching - Blog" />;
@@ -108,6 +108,7 @@ export const query = graphql`
         slug
         title
         description
+        heading
         excerpt
         category
         image {

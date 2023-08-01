@@ -450,6 +450,7 @@ exports.createSchemaCustomization = async ({ actions }) => {
       title: String
       description: String
       image: HomepageImage
+      heading: String!
       html: String!
       body: DatoCmsDatoCmsPageBodyStructuredText
       excerpt: String
@@ -815,6 +816,7 @@ exports.createSchemaCustomization = async ({ actions }) => {
         @proxy(from: "entityPayload.attributes.metadata.description")
       image: HomepageImage
         @link(by: "originalId", from: "entityPayload.attributes.metadata.image")
+      heading: String!
       html: String! @richText
       body: DatoCmsDatoCmsPageBodyStructuredText
       excerpt: String
