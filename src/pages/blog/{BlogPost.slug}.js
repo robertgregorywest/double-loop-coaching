@@ -2,6 +2,8 @@ import * as React from "react";
 import { graphql } from "gatsby";
 import { GatsbyImage } from "gatsby-plugin-image";
 import Layout from "../../components/layout";
+import * as sections from "../../components/sections";
+import Fallback from "../../components/fallback";
 import {
   Container,
   Flex,
@@ -11,7 +13,7 @@ import {
   Text,
   Avatar,
 } from "../../components/ui";
-import * as styles from "./blog-post.css";
+
 import SEOHead from "../../components/head";
 
 export default function BlogPost(props) {
@@ -47,12 +49,11 @@ export default function BlogPost(props) {
             />
           )}
           <Space size={5} />
-          <div
-            className={styles.blogPost}
-            dangerouslySetInnerHTML={{
-              __html: blogPost.html,
-            }}
-          />
+          {blogPost.blocks.map((block) => {
+            const { id, blocktype, ...componentProps } = block;
+            const Component = sections[blocktype] || Fallback;
+            return <Component key={id} {...componentProps} />;
+          })}
         </Box>
       </Container>
     </Layout>
@@ -87,7 +88,12 @@ export const query = graphql`
           url
         }
       }
-      html
+      blocks: content {
+        id
+        blocktype
+        ...BlogContentContent
+        ...BlogImageContent
+      }
     }
   }
 `;

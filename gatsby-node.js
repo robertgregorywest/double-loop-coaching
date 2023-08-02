@@ -444,6 +444,24 @@ exports.createSchemaCustomization = async ({ actions }) => {
       avatar: HomepageImage
     }
 
+    interface BlogContent implements Node & HomepageBlock {
+      id: ID!
+      blocktype: String
+      html: String!
+      ## DatoCMS
+      originalId: String
+      entityPayload: JSON
+    }
+
+    interface BlogImage implements Node & HomepageBlock {
+      id: ID!
+      blocktype: String
+      image: HomepageImage
+      ## DatoCMS
+      originalId: String
+      entityPayload: JSON
+    }
+
     interface BlogPost implements Node {
       id: ID!
       slug: String!
@@ -451,8 +469,7 @@ exports.createSchemaCustomization = async ({ actions }) => {
       description: String
       image: HomepageImage
       heading: String!
-      html: String!
-      body: DatoCmsDatoCmsPageBodyStructuredText
+      content: [HomepageBlock]
       excerpt: String
       category: String
       header: HomepageImage
@@ -807,6 +824,22 @@ exports.createSchemaCustomization = async ({ actions }) => {
       avatar: HomepageImage
     }
 
+    type DatoCmsBlogContent implements Node & BlogContent & HomepageBlock {
+      id: ID!
+      blocktype: String @blocktype
+      originalId: String
+      entityPayload: JSON
+      html: String! @richText
+    }
+
+    type DatoCmsBlogImage implements Node & BlogImage & HomepageBlock {
+      id: ID!
+      blocktype: String @blocktype
+      originalId: String
+      entityPayload: JSON
+      image: HomepageImage
+    }
+
     type DatoCmsBlogPost implements Node & BlogPost @dontInfer {
       id: ID!
       entityPayload: JSON!
@@ -817,8 +850,7 @@ exports.createSchemaCustomization = async ({ actions }) => {
       image: HomepageImage
         @link(by: "originalId", from: "entityPayload.attributes.metadata.image")
       heading: String!
-      html: String! @richText
-      body: DatoCmsDatoCmsPageBodyStructuredText
+      content: [HomepageBlock]
       excerpt: String
       category: String
       header: HomepageImage

@@ -1,5 +1,5 @@
 import { style, globalStyle } from "@vanilla-extract/css";
-import { theme } from "../../theme.css";
+import { theme } from "../theme.css";
 
 export const blogPost = style({
   fontSize: theme.fontSizes[3],
@@ -27,6 +27,8 @@ const containedElements = [
   "ul",
   "ol",
   "dl",
+  "blockquote",
+  "footer",
 ]
   .map((el) => blogPost + " " + el)
   .join(", ");
@@ -39,11 +41,6 @@ globalStyle(containedElements, {
 
 globalStyle(`${blogPost} p`, {
   lineHeight: theme.lineHeights.text,
-});
-
-globalStyle(`${blogPost} > p:first-of-type`, {
-  fontSize: theme.fontSizes[4],
-  fontWeight: theme.fontWeights.bold,
 });
 
 globalStyle(`${blogPost} h2`, {
@@ -64,4 +61,34 @@ globalStyle(`${blogPost} h4`, {
 globalStyle(`${blogPost} h5, ${blogPost} h6`, {
   fontSize: theme.fontSizes[2],
   fontWeight: theme.fontWeights.bold,
+});
+
+globalStyle(`${blogPost} blockquote`, {
+  fontSize: theme.fontSizes[4],
+  fontWeight: theme.fontWeights.bold,
+  color: theme.colors.text,
+  position: "relative",
+  borderTop: "1px solid",
+  borderBottom: "1px solid",
+  marginTop: 32,
+  marginBottom: 55,
+});
+
+globalStyle(`${blogPost} blockquote:after`, {
+  position: "absolute",
+  content: "”",
+  fontSize: "10rem",
+  lineHeight: 0,
+  bottom: -40,
+  right: 30,
+});
+
+globalStyle(`${blogPost} footer:before`, {
+  content: "—",
+});
+
+globalStyle(`${blogPost} footer`, {
+  fontSize: theme.fontSizes[3],
+  fontStyle: "italic",
+  paddingBottom: theme.space[4],
 });
