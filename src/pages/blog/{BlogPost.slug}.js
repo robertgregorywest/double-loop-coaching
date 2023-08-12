@@ -93,6 +93,7 @@ export const query = graphql`
         blocktype
         ...BlogContentContent
         ...BlogImageContent
+        ...HomepageCtaContent
       }
     }
   }
