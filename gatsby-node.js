@@ -438,6 +438,47 @@ exports.createSchemaCustomization = async ({ actions }) => {
       body: DatoCmsDatoCmsPageBodyStructuredText
     }
 
+    interface BlogAuthor implements Node {
+      id: ID!
+      name: String
+      avatar: HomepageImage
+    }
+
+    interface BlogContent implements Node & HomepageBlock {
+      id: ID!
+      blocktype: String
+      html: String!
+      ## DatoCMS
+      originalId: String
+      entityPayload: JSON
+    }
+
+    interface BlogImage implements Node & HomepageBlock {
+      id: ID!
+      blocktype: String
+      image: HomepageImage
+      ## DatoCMS
+      originalId: String
+      entityPayload: JSON
+    }
+
+    interface BlogPost implements Node {
+      id: ID!
+      slug: String!
+      title: String
+      description: String
+      image: HomepageImage
+      heading: String!
+      content: [HomepageBlock]
+      excerpt: String
+      category: String
+      header: HomepageImage
+      author: BlogAuthor
+      # DatoCMS
+      originalId: String
+      entityPayload: JSON
+    }
+
     interface ServicePage implements Node {
       id: ID!
       slug: String!
@@ -710,7 +751,7 @@ exports.createSchemaCustomization = async ({ actions }) => {
       logos: [HomepageImage]
     }
 
-    type DatoCmsAboutpage implements Node & AboutPage @dontInfer {
+    type DatoCmsAboutPage implements Node & AboutPage @dontInfer {
       id: ID!
       title: String @proxy(from: "entityPayload.attributes.metadata.title")
       description: String
@@ -725,7 +766,7 @@ exports.createSchemaCustomization = async ({ actions }) => {
 
   // Layout types
   actions.createTypes(/* GraphQL */ `
-    type DatoCmsLayoutheader implements Node & LayoutHeader @dontInfer {
+    type DatoCmsLayoutHeader implements Node & LayoutHeader @dontInfer {
       id: ID!
       navItems: [HeaderNavItem]
       originalCta: HomepageLink
@@ -741,7 +782,7 @@ exports.createSchemaCustomization = async ({ actions }) => {
       service: SocialService!
     }
 
-    type DatoCmsLayoutfooter implements Node & LayoutFooter @dontInfer {
+    type DatoCmsLayoutFooter implements Node & LayoutFooter @dontInfer {
       id: ID!
       links: [HomepageLink]
       metalinks: [HomepageLink]
@@ -759,6 +800,7 @@ exports.createSchemaCustomization = async ({ actions }) => {
     }
   `);
 
+  // CMS specific types for pages
   actions.createTypes(/* GraphQL */ `
     type DatoCmsPage implements Node & Page {
       id: ID!
@@ -774,9 +816,53 @@ exports.createSchemaCustomization = async ({ actions }) => {
     }
   `);
 
+  // CMS specific types for Blog pages
+  actions.createTypes(/* GraphQL */ `
+    type DatoCmsBlogAuthor implements Node & BlogAuthor @dontInfer {
+      id: ID!
+      name: String
+      avatar: HomepageImage
+    }
+
+    type DatoCmsBlogContent implements Node & BlogContent & HomepageBlock {
+      id: ID!
+      blocktype: String @blocktype
+      originalId: String
+      entityPayload: JSON
+      html: String! @richText
+    }
+
+    type DatoCmsBlogImage implements Node & BlogImage & HomepageBlock {
+      id: ID!
+      blocktype: String @blocktype
+      originalId: String
+      entityPayload: JSON
+      image: HomepageImage
+    }
+
+    type DatoCmsBlogPost implements Node & BlogPost @dontInfer {
+      id: ID!
+      entityPayload: JSON!
+      slug: String!
+      title: String @proxy(from: "entityPayload.attributes.metadata.title")
+      description: String
+        @proxy(from: "entityPayload.attributes.metadata.description")
+      image: HomepageImage
+        @link(by: "originalId", from: "entityPayload.attributes.metadata.image")
+      heading: String!
+      content: [HomepageBlock]
+      excerpt: String
+      category: String
+      header: HomepageImage
+      author: BlogAuthor
+      entityPayload: JSON
+      originalId: String
+    }
+  `);
+
   // CMS specific types for Service page
   actions.createTypes(/* GraphQL */ `
-    type DatoCmsServicepage implements Node & ServicePage @dontInfer {
+    type DatoCmsServicePage implements Node & ServicePage @dontInfer {
       id: ID!
       slug: String!
       title: String @proxy(from: "entityPayload.attributes.metadata.title")
@@ -792,7 +878,7 @@ exports.createSchemaCustomization = async ({ actions }) => {
 
   // CMS specific types for Contact page
   actions.createTypes(/* GraphQL */ `
-    type DatoCmsContactpage implements Node & ContactPage @dontInfer {
+    type DatoCmsContactPage implements Node & ContactPage @dontInfer {
       id: ID!
       title: String @proxy(from: "entityPayload.attributes.metadata.title")
       description: String

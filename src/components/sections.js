@@ -11,3 +11,5 @@ export { default as AboutStatList } from "./about-stat-list";
 export { default as AboutLeadership } from "./about-leadership";
 export { default as AboutLogoList } from "./about-logo-list";
 export { default as CompanyDetail } from "./compantDetail";
+export { default as BlogContent } from "./blog-content";
+export { default as BlogImage } from "./blog-image";
