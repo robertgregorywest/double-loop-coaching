@@ -470,6 +470,7 @@ exports.createSchemaCustomization = async ({ actions }) => {
       image: HomepageImage
       heading: String!
       content: [HomepageBlock]
+      date: String
       excerpt: String
       category: String
       header: HomepageImage
@@ -851,6 +852,7 @@ exports.createSchemaCustomization = async ({ actions }) => {
         @link(by: "originalId", from: "entityPayload.attributes.metadata.image")
       heading: String!
       content: [HomepageBlock]
+      date: String
       excerpt: String
       category: String
       header: HomepageImage
