@@ -104,7 +104,7 @@ export const Head = () => {
 
 export const query = graphql`
   {
-    allBlogPost(sort: { date: DESC }) {
+    allBlogPost(sort: { date: DESC }, filter: { category: { nin: "Draft" } }) {
       nodes {
         id
         slug
