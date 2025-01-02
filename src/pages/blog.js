@@ -14,6 +14,7 @@ import {
   Text,
 } from "../components/ui";
 import SEOHead from "../components/head";
+import { formatDate } from "../../scripts/utils";
 
 export default function Blog(props) {
   const { nodes: posts } = props.data.allBlogPost;
@@ -57,6 +58,7 @@ function PostCard({
   excerpt,
   author,
   category,
+  date,
   ...props
 }) {
   return (
@@ -71,6 +73,9 @@ function PostCard({
         <Kicker>{category}</Kicker>
         {heading}
       </Subhead>
+      <Text as="p" variant="bold">
+        {formatDate(date)}
+      </Text>
       <Text as="p">{excerpt}</Text>
       {author?.name && (
         <Text variant="bold">
@@ -81,7 +86,15 @@ function PostCard({
   );
 }
 
-function PostCardSmall({ slug, header, heading, category, ...props }) {
+function PostCardSmall({
+  slug,
+  header,
+  heading,
+  category,
+  author,
+  date,
+  ...props
+}) {
   return (
     <BlockLink {...props} to={`/blog/${slug}`}>
       {header && (
@@ -90,10 +103,16 @@ function PostCardSmall({ slug, header, heading, category, ...props }) {
           <Space size={3} />
         </>
       )}
-      <Subhead>
+      <Subhead variant="subheadSmall">
         <Kicker>{category}</Kicker>
         {heading}
       </Subhead>
+      <Text variant="bold">
+        <div>
+          {formatDate(date)}
+          {author?.name && <span> by {author.name}</span>}
+        </div>
+      </Text>
     </BlockLink>
   );
 }
@@ -111,8 +130,12 @@ export const query = graphql`
         title
         description
         heading
+        date
         excerpt
         category
+        author {
+          name
+        }
         image {
           id
           gatsbyImageData

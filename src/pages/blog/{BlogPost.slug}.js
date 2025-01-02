@@ -13,6 +13,7 @@ import {
   Text,
   Avatar,
 } from "../../components/ui";
+import { formatDate } from "../../../scripts/utils";
 
 import SEOHead from "../../components/head";
 
@@ -40,7 +41,9 @@ export default function BlogPost(props) {
             </Box>
           )}
           <Space size={4} />
-          <Text center>{blogPost.date}</Text>
+          <Text variant="bold" center>
+            {formatDate(blogPost.date)}
+          </Text>
           <Space size={4} />
           {blogPost.header && (
             <GatsbyImage
@@ -88,6 +91,7 @@ export const query = graphql`
           url
         }
       }
+      date
       blocks: content {
         id
         blocktype
