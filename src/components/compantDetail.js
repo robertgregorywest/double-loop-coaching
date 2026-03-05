@@ -20,11 +20,6 @@ export default function CompanyDetail(props) {
             <br />
             {props.addressPostcode}
           </Text>
-          <Text as="p" variant="heroText">
-            Company number: {props.companyNumber}
-            <br />
-            VAT number: {props.vatNumber}
-          </Text>
         </Box>
       </Container>
     </Section>
@@ -39,7 +34,5 @@ export const query = graphql`
     addressLineTwo
     addressPostcode
     addressTown
-    companyNumber
-    vatNumber
   }
 `;
